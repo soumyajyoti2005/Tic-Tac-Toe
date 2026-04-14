@@ -1,8 +1,9 @@
 import pygame as pg
 import random as rd
 import math
-import gradient as gd
 import numpy as np
+import asyncio
+
 
 # --------------- initialize pygame -------------------
 pg.init()
@@ -21,14 +22,14 @@ OUTER_PAD = 10
 BORDER_RADIUS = 12
 OUTLINE_THICKNESS = 5
 
-COLORS = gd.GRADIENTS["rose_petal"]
+# COLORS = gd.GRADIENTS["rose_petal"]
 GRID_COLOR = (255, 255, 255, 80)
 
 FONT = pg.font.SysFont("bookantiqua", 120, bold=True)
 FONT_COLOR = (100, 0, 60)  # deep berry
 
 # ── Pick any gradient from your module ──
-PALETTE = gd.GRADIENTS["rose_petal"]  # change this key to any gradient
+PALETTE = [(255,154,158), (250,208,196), (255,236,210), (252,182,159)] # change this key to any gradient
 
 # Precompute pixel grids (normalized 0→1)
 xs = np.linspace(0, 1, WIDTH)
@@ -82,7 +83,7 @@ def draw_gradient(window):
 class Grid:
     def __init__(self):
         self.used = {}
-        self.touch = 0 #it defines whose turn X or O depending one value even -> X or odd -> O
+        self.touch = 0 #it defines whose turn X or O depending one value even  X or odd  O
 
     def check_used(self,r,c):
         if f"{r}{c}" not in self.used : 
@@ -257,7 +258,7 @@ def draw(window):
      pg.display.update()
 
 # -------------- main loop function ------------
-def main(window):
+async def main(window):
     clock = pg.time.Clock()
     run = True
     
@@ -356,11 +357,12 @@ def main(window):
 
 
         draw(window)
+        await asyncio.sleep(0)
 
     pg.quit()
 
 
 if __name__ == "__main__":
-    main(WINDOW)
+    asyncio.run(main(WINDOW))
 
 
