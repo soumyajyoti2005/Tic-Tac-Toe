@@ -1,0 +1,155 @@
+<svg width="100%" viewBox="0 0 680 340" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Tic Tac Toe – animated banner</title>
+  <desc>An animated banner for a rose-pink Tic Tac Toe game showing X and O moves playing out dynamically.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#f4a7b5"/>
+      <stop offset="40%"  stop-color="#f9c6c0"/>
+      <stop offset="70%"  stop-color="#fadadd"/>
+      <stop offset="100%" stop-color="#f7b7c2"/>
+    </linearGradient>
+    <linearGradient id="bg2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#fce4ec" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#f48fb1" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <filter id="soft-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#b0004a" flood-opacity="0.18"/>
+    </filter>
+
+    <style>
+      .grid-line { stroke: rgba(255,255,255,0.55); stroke-width: 3; stroke-linecap: round; }
+      .win-line  { stroke: #ffd700; stroke-width: 6; stroke-linecap: round; stroke-opacity: 0; }
+      .sym-x { stroke: #6a003c; stroke-width: 10; stroke-linecap: round; fill: none; }
+      .sym-o { stroke: #6a003c; stroke-width: 9; fill: none; }
+      .title-text {
+        font-family: "Book Antiqua", Palatino, serif;
+        font-size: 38px;
+        font-weight: bold;
+        fill: #6a003c;
+        filter: url(#soft-shadow);
+      }
+      .sub-text {
+        font-family: "Book Antiqua", Palatino, serif;
+        font-size: 13px;
+        fill: #9a2060;
+        letter-spacing: 2px;
+      }
+
+      @keyframes pop {
+        0%   { opacity:0; transform: scale(0.3); }
+        70%  { opacity:1; transform: scale(1.12); }
+        100% { opacity:1; transform: scale(1); }
+      }
+      @keyframes winLine {
+        0%   { stroke-opacity:0; stroke-dashoffset: 300; }
+        40%  { stroke-opacity:0.9; }
+        100% { stroke-opacity:0.9; stroke-dashoffset: 0; }
+      }
+      @keyframes pulse {
+        0%,100% { transform: scale(1); }
+        50%      { transform: scale(1.04); }
+      }
+      @keyframes floatUp {
+        0%   { opacity:0; transform: translateY(0) scale(0.7); }
+        20%  { opacity:0.7; }
+        100% { opacity:0; transform: translateY(-70px) scale(1.2); }
+      }
+
+      #g-x0 { opacity:0; transform-origin:337px 74px;  animation: pop 0.45s ease-out 0.4s forwards; }
+      #g-o0 { opacity:0; transform-origin:450px 187px; animation: pop 0.45s ease-out 1.1s forwards; }
+      #g-x1 { opacity:0; transform-origin:337px 283px; animation: pop 0.45s ease-out 1.8s forwards; }
+      #g-o1 { opacity:0; transform-origin:561px 74px;  animation: pop 0.45s ease-out 2.5s forwards; }
+      #g-x2 { opacity:0; transform-origin:337px 187px; animation: pop 0.45s ease-out 3.2s forwards; }
+
+      #win-line {
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+        stroke-opacity: 0;
+        animation: winLine 0.8s ease-out 3.9s forwards;
+      }
+      #board { transform-origin: 449px 170px; animation: pulse 1.6s ease-in-out 4.8s infinite; }
+
+      .particle { animation: floatUp 2.4s ease-in-out infinite; fill: #f48fb1; }
+      #p1 { animation-delay: 0s;   transform-origin: 60px 300px; }
+      #p2 { animation-delay: 0.6s; transform-origin: 600px 280px; }
+      #p3 { animation-delay: 1.2s; transform-origin: 340px 320px; }
+      #p4 { animation-delay: 1.8s; transform-origin: 120px 220px; }
+      #p5 { animation-delay: 0.9s; transform-origin: 580px 200px; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="680" height="340" rx="18" fill="url(#bg)"/>
+  <rect width="680" height="340" rx="18" fill="url(#bg2)"/>
+
+  <!-- Decorative blobs -->
+  <ellipse cx="80"  cy="60"  rx="90" ry="70" fill="#f8bbd0" opacity="0.35"/>
+  <ellipse cx="600" cy="280" rx="110" ry="80" fill="#f48fb1" opacity="0.22"/>
+  <ellipse cx="350" cy="310" rx="160" ry="60" fill="#fce4ec" opacity="0.3"/>
+
+  <!-- Floating particles -->
+  <g id="p1" class="particle"><circle cx="60" cy="300" r="5"/></g>
+  <g id="p2" class="particle"><circle cx="600" cy="280" r="4"/></g>
+  <g id="p3" class="particle"><circle cx="340" cy="320" r="6" fill="#e91e8c" opacity="0.5"/></g>
+  <g id="p4" class="particle"><circle cx="120" cy="220" r="3.5"/></g>
+  <g id="p5" class="particle"><circle cx="580" cy="200" r="5" fill="#ec407a" opacity="0.4"/></g>
+
+  <!-- Board -->
+  <g id="board">
+    <!-- Grid lines -->
+    <line class="grid-line" x1="393" y1="18"  x2="393" y2="322"/>
+    <line class="grid-line" x1="506" y1="18"  x2="506" y2="322"/>
+    <line class="grid-line" x1="280" y1="131" x2="617" y2="131"/>
+    <line class="grid-line" x1="280" y1="244" x2="617" y2="244"/>
+
+    <!-- X at row0 col0 -->
+    <g id="g-x0">
+      <line class="sym-x" x1="308" y1="46"  x2="366" y2="102"/>
+      <line class="sym-x" x1="366" y1="46"  x2="308" y2="102"/>
+    </g>
+
+    <!-- O at row1 col1 -->
+    <g id="g-o0">
+      <circle class="sym-o" cx="450" cy="187" r="38"/>
+    </g>
+
+    <!-- X at row2 col0 -->
+    <g id="g-x1">
+      <line class="sym-x" x1="308" y1="255" x2="366" y2="311"/>
+      <line class="sym-x" x1="366" y1="255" x2="308" y2="311"/>
+    </g>
+
+    <!-- O at row0 col2 -->
+    <g id="g-o1">
+      <circle class="sym-o" cx="561" cy="74" r="38"/>
+    </g>
+
+    <!-- X at row1 col0 (winning move) -->
+    <g id="g-x2">
+      <line class="sym-x" x1="308" y1="159" x2="366" y2="215"/>
+      <line class="sym-x" x1="366" y1="159" x2="308" y2="215"/>
+    </g>
+
+    <!-- Win line: left column -->
+    <line id="win-line" class="win-line"
+          x1="337" y1="28"
+          x2="337" y2="316"
+          stroke-dasharray="300"
+    />
+  </g>
+
+  <!-- Title -->
+  <text class="title-text" x="44" y="120" text-anchor="start">TIC</text>
+  <text class="title-text" x="44" y="168" text-anchor="start">TAC</text>
+  <text class="title-text" x="44" y="216" text-anchor="start">TOE</text>
+  <text class="sub-text" x="44" y="246" text-anchor="start">PYGAME EDITION</text>
+
+  <circle cx="44" cy="264" r="3.5" fill="#e91e8c" opacity="0.5"/>
+  <circle cx="54" cy="264" r="3.5" fill="#e91e8c" opacity="0.35"/>
+  <circle cx="64" cy="264" r="3.5" fill="#e91e8c" opacity="0.2"/>
+
+  <text font-family="'Book Antiqua', Palatino, serif" font-size="11" fill="#9a3060" opacity="0.75"
+        x="44" y="300" text-anchor="start">built with pygame · animated gradient · touch support</text>
+</svg>
